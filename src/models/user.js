@@ -1,0 +1,136 @@
+'use strict';
+
+const Sequelize = require('sequelize');
+const Model = Sequelize.Model;
+const Op = Sequelize.Op;
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken')
+
+const SECRET = 'jdjdhdjdskdachbdsgsuyckjhnhvgbshi';
+
+class User extends Model {
+    static init(sequelize, DataTypes) {
+        return super.init({
+            name: {
+                type: DataTypes.STRING,
+                allowNull: false,
+                validate: {
+                    notNull: {
+                        msg: "O nome deve ser informado"
+                    }
+                }
+            },
+            description: DataTypes.STRING,
+            pic: DataTypes.STRING,
+            email: {
+                type: DataTypes.STRING,
+                allowNull: false,
+                validate: {
+                    notNull: {
+                        msg: "O email deve ser informado"
+                    },
+                    isEmail: {
+                        msg: "Não é um email válido"
+                    }
+                }
+            },
+            password: {
+                type: DataTypes.STRING,
+                allowNull: false,
+                validate: {
+                    notNull: {
+                        msg: "A senha deve ser informada"
+                    }
+                }
+            },
+        }, {
+            sequelize,
+
+            hooks: {
+                beforeSave: (user, options) => {
+                    user.password = bcrypt.hashSync(user.password, 10)
+                }
+            }
+        })
+    }
+    static associate(models) {}
+
+    static async search(query) {
+        const limit = query.limit ? parseInt(req, query.limit) : 20
+        const offset = query.offset ? parseInt(req.query.offset) : 0
+
+        let where = {}
+
+        //Filtrar pelo nome
+        if (req.query.name) where.name = {
+            [Op.like]: `%${req.query.name}%`
+        }
+        if (req.query.email) where.email = q.query.email
+
+        //Consulta
+        const entities = await User.findAndCountAll({
+            where: where,
+            limit: limit,
+            offset: offset
+        })
+
+        return {
+            entities: entities.rows,
+            meta: {
+                count: entities.count,
+                limit: limit,
+                offset: offset
+            }
+        }
+    }
+
+    static async get(id) {
+        return await User.findByPk(id, {})
+    }
+
+    static async verifyLogin(email, password) {
+        try {
+            let user = await User.findOne({
+                where: {
+                    email: email
+                },
+            })
+
+            if (!user) {
+                throw new Error('Email nao encontrado.');
+            }
+
+
+            if (!bcrypt.compareSync(password, user.password)) {
+                throw new Error('A senha nao confere.');
+            }
+
+            //Recuperar usuario
+            let token = jwt.sign({
+                id: user.id
+            }, SECRET, {
+                expiresIn: '1d'
+            })
+
+            return {
+                user: user.transform(),
+                token: token
+            }
+
+        } catch (error) {
+            throw error
+        }
+    }
+
+    transform() {
+        return {
+            id: this.id,
+            name: this.name,
+            description: this.description,
+            pic: this.pic,
+            email: this.email
+        }
+    }
+}
+
+module.exports = User;
