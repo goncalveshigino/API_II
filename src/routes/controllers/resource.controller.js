@@ -20,7 +20,9 @@ class ResourceController {
     async index(req, res, next) {
 
         try {
-            const { entities, meta } = await this.model.search(req, query)
+
+            const { entities, meta } = await this.model.search(req.query)
+
             return sucessResponse(res, 200, null, entities, meta)
 
         } catch (error) {

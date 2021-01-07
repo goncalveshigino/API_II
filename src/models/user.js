@@ -4,9 +4,10 @@ const Sequelize = require('sequelize');
 const Model = Sequelize.Model;
 const Op = Sequelize.Op;
 const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken')
-
+const jwt = require('jsonwebtoken');
 const SECRET = 'jdjdhdjdskdachbdsgsuyckjhnhvgbshi';
+
+
 
 class User extends Model {
     static init(sequelize, DataTypes) {
@@ -56,16 +57,16 @@ class User extends Model {
     static associate(models) {}
 
     static async search(query) {
-        const limit = query.limit ? parseInt(req, query.limit) : 20
-        const offset = query.offset ? parseInt(req.query.offset) : 0
+        const limit = query.limit ? parseInt(query.limit) : 20
+        const offset = query.offset ? parseInt(query.offset) : 0
 
         let where = {}
 
         //Filtrar pelo nome
-        if (req.query.name) where.name = {
-            [Op.like]: `%${req.query.name}%`
+        if (query.name) where.name = {
+            [Op.like]: `%${query.name}%`
         }
-        if (req.query.email) where.email = q.query.email
+        if (query.email) where.email = q.query.email
 
         //Consulta
         const entities = await User.findAndCountAll({
@@ -113,7 +114,7 @@ class User extends Model {
             })
 
             return {
-                user: user.transform(),
+                user: user,
                 token: token
             }
 
@@ -122,14 +123,15 @@ class User extends Model {
         }
     }
 
-    transform() {
-        return {
-            id: this.id,
-            name: this.name,
-            description: this.description,
-            pic: this.pic,
-            email: this.email
-        }
+    //Recuperar o token
+    static async verifyToken(token) {
+        return await jwt.verify(token, SECRET)
+    }
+
+    toJSON() {
+        const values = Object.assign({}, this.get());
+        delete values.password;
+        return values;
     }
 }
 
