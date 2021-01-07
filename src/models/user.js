@@ -85,7 +85,7 @@ class User extends Model {
         }
     }
 
-    static async get(id) {
+    static async getId(id) {
         return await User.findByPk(id, {})
     }
 
