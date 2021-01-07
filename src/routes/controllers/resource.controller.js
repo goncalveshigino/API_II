@@ -26,6 +26,7 @@ class ResourceController {
             return sucessResponse(res, 200, null, entities, meta)
 
         } catch (error) {
+            console.log(error)
             return errorResponse(res, 500, `Nao foi possivel listar entidades de ${this.model.getTableName()}`, error)
         }
     }
@@ -34,7 +35,7 @@ class ResourceController {
 
     async show(req, res, next) {
         try {
-            const entity = await this.model.get(req.params.id)
+            const entity = await this.model.getId(req.params.id)
             return sucessResponse(res, 200, null, entity)
         } catch (error) {
             return errorResponse(res, 500, `Não foi possível recuperar os dados da entidade de ${this.model.getTableName()} pelo Id`, error)
@@ -58,7 +59,7 @@ class ResourceController {
 
     async update(req, res, next) {
         try {
-            const entityOld = await this.model.get(req.params.id)
+            const entityOld = await this.model.getId(req.params.id)
             const entityNew = await entityOld.update(req.body)
             return sucessResponse(res, 200, `Entidade atualizada com sucesso em ${this.model.getTableName()}.`, entityNew)
         } catch (error) {
@@ -72,7 +73,7 @@ class ResourceController {
 
     async remove(req, res, next) {
         try {
-            const entity = await this.model.get(req.params.id)
+            const entity = await this.model.getId(req.params.id)
             if (!entity) {
                 return errorResponse(res, 404, `Não foi possível recuperar os dados da entidade de ${this.model.getTableName()} pelo Id`, error)
             }
