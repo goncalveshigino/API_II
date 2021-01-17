@@ -1,10 +1,12 @@
 const User = require('../../models').User
+
 const errorResponse = require('../responses/error.response')
 
 
 module.exports = async(req, res, next) => {
 
     try {
+
         if (!req.headers['x-access-token']) {
             return errorResponse(res, 400, 'O header [x-access-token] deve ser informado')
         }
