@@ -21,7 +21,7 @@ class User extends Model {
                     }
                 }
             },
-            description: DataTypes.STRING,
+            description: DataTypes.TEXT,
             pic: DataTypes.STRING,
             email: {
                 type: DataTypes.STRING,
