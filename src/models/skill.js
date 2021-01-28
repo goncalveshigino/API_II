@@ -18,7 +18,7 @@ class Skill extends Model {
         }, {
             sequelize,
             timestamps: false,
-            underscored: true
+           // underscored: true
         })
     }
 

@@ -4,7 +4,7 @@ const Model = Sequelize.Model;
 const Op = Sequelize.Op;
 
 
-class Portfilios extends Model {
+class Portfolios extends Model {
 
     static init(sequelize, DataTypes) {
         return super.init({
@@ -15,7 +15,7 @@ class Portfilios extends Model {
                     notNull: {
                         msg: "O userId deve ser informado"
                     },
-                    async isInUsers(value) {
+                    /*  async isInUsers(value) {
                         try {
                             const user = await this.sequelize.models.User.get(value)
                             if (!user) {
@@ -24,7 +24,7 @@ class Portfilios extends Model {
                         } catch (error) {
                             throw error;
                         }
-                    }
+                    }*/
                 }
             },
             title: {
@@ -57,16 +57,16 @@ class Portfilios extends Model {
             [Op.like]: `%${query.title}%`
         }
 
-        return await Protfolio.findAndCountAll({
+        return await Portfolios.findAndCountAll({
             where: where,
             limit: limit < 100 && limit > 0 ? limit : 20,
             offset: offset
         })
     }
-    static async get(id) {
-        return await Portfolio.findByPk(id)
+    static async getId(id) {
+        return await Portfolios.findByPk(id)
     }
 
 }
 
-module.exports = Portfilios;
+module.exports = Portfolios;

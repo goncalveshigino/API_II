@@ -54,7 +54,11 @@ class User extends Model {
             }
         })
     }
-    static associate(models) {}
+    static associate(models) {
+        this.hasMany(models.UserSkill,{
+            as :'UserSkills'
+        })
+    }
 
     static async search(query) {
         const limit = query.limit ? parseInt(query.limit) : 20
@@ -86,7 +90,16 @@ class User extends Model {
     }
 
     static async getId(id) {
-        return await User.findByPk(id, {})
+        return await User.findByPk(id, {
+            include:[{
+                model: this.sequelize.models.UserSkill,
+                as:'UserSkills',
+                include:[{
+                model: this.sequelize.models.Skill,
+                as:'Skill',
+                }]
+            }]
+        })
     }
 
     static async verifyLogin(email, password) {
