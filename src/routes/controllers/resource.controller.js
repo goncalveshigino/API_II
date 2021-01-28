@@ -38,6 +38,7 @@ class ResourceController {
             const entity = await this.model.getId(req.params.id)
             return sucessResponse(res, 200, null, entity)
         } catch (error) {
+            console.log(error)
             return errorResponse(res, 500, `Não foi possível recuperar os dados da entidade de ${this.model.getTableName()} pelo Id`, error)
         }
     }

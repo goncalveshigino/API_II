@@ -62,10 +62,12 @@ class JobSkill extends Model {
         })
 
         this.belongsTo(models.Skill, {
-            foreignKey: 'jobId',
+            foreignKey: 'skillId',
             targetKey: 'id',
-            as: 'User'
+            as: 'Skill'
         })
 
     }
 }
+
+module.exports = JobSkill
