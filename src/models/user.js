@@ -55,8 +55,8 @@ class User extends Model {
         })
     }
     static associate(models) {
-        this.hasMany(models.UserSkill,{
-            as :'UserSkills'
+        this.hasMany(models.UserSkill, {
+            as: 'UserSkills'
         })
     }
 
@@ -91,12 +91,12 @@ class User extends Model {
 
     static async getId(id) {
         return await User.findByPk(id, {
-            include:[{
+            include: [{
                 model: this.sequelize.models.UserSkill,
-                as:'UserSkills',
-                include:[{
-                model: this.sequelize.models.Skill,
-                as:'Skill',
+                as: 'UserSkills',
+                include: [{
+                    model: this.sequelize.models.Skill,
+                    as: 'Skill',
                 }]
             }]
         })
