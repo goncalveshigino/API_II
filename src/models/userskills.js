@@ -13,16 +13,16 @@ class UserSkill extends Model {
                     notNull: {
                         msg: 'O userId deve ser informado.'
                     },
-                    async isInUsers(value) {
+                    /* async isInUsers(value) {
                         try {
-                            const user = await this.sequelize.models.User.get(value)
-                            if (!user) {
-                                throw new Error('Usuario associado não pode ser encontrado');
+                            const skill = await this.sequelize.models.Skill.getId(value)
+                            if (!skill) {
+                                throw new Error('Skill associado não pode ser encontrado');
                             }
                         } catch (error) {
                             throw error;
                         }
-                    }
+                    }*/
                 },
             },
             skillId: {
@@ -32,16 +32,16 @@ class UserSkill extends Model {
                     notNull: {
                         msg: 'O skillId deve ser informado.'
                     },
-                    async isInSkills(value) {
+                    /* async isInUsers(value) {
                         try {
-                            const skill = await this.sequelize.models.Skill.get(value)
+                            const skill = await this.sequelize.models.Skill.getId(value)
                             if (!skill) {
                                 throw new Error('Skill associado não pode ser encontrado');
                             }
                         } catch (error) {
                             throw error;
                         }
-                    }
+                    }*/
                 },
             },
             level: {
@@ -89,7 +89,7 @@ class UserSkill extends Model {
 
     }
 
-    static async get(id) {
+    static async getId(id) {
         return await UserSkill.findByPk(id)
     }
 
@@ -101,7 +101,7 @@ class UserSkill extends Model {
             'Intermediário',
             'Avaçnado'
         ]
-        console.log(values)
+
         return {
             id: values.id,
             skillId: values.Skill ? values.Skill.dataValues.id : '',

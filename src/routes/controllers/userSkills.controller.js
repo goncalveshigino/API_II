@@ -1,4 +1,4 @@
- const UserSkills = require('../../models').UserSkill
+ const UserSkills = require('../../models/userskills')
  const ResourceController = require('./resource.controller')
 
 

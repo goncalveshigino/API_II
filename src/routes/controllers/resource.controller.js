@@ -49,10 +49,11 @@ class ResourceController {
             const entity = await this.model.create(req.body)
             return sucessResponse(res, 200, `Nova entidade incluida com sucesso em ${this.model.getTableName()}.`, entity)
         } catch (error) {
+
             if (error.name && error.name.includes('SequelizeValidation')) {
                 return invalidResponse(res, 400, `Dados informados nao sao validos`)
             }
-            console.log(error)
+
             return errorResponse(res, 500, `Erro ao incluir entidade em ${this.model.getTableName()}`, error)
         }
     }
@@ -64,6 +65,7 @@ class ResourceController {
             const entityNew = await entityOld.update(req.body)
             return sucessResponse(res, 200, `Entidade atualizada com sucesso em ${this.model.getTableName()}.`, entityNew)
         } catch (error) {
+            console.log(error)
             if (error.name && error.name.includes('SequelizeValidation')) {
                 return invalidResponse(res, 400, `Dados informados nao sao validos`)
             }
