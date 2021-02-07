@@ -1,4 +1,4 @@
- const Portfolios = require('../../models/portfolios')
+ const Portfolios = require('../../models').Portfolios
  const ResourceController = require('./resource.controller')
 
 
