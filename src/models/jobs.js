@@ -99,13 +99,14 @@ class Job extends Model {
 
         const { rows, count } = await Job.findAndCountAll({
             include: [{
-                model: this.sequelize.models.User,
-                as: 'Hirer'
-            }],
-            include: [{
-                model: this.sequelize.models.Skill,
-                as: 'Skills'
-            }],
+                    model: this.sequelize.models.User,
+                    as: 'Hirer'
+                },
+                {
+                    model: this.sequelize.models.Skill,
+                    as: 'Skills'
+                }
+            ],
             where: where,
             limit: limit,
             offset: offset
@@ -125,13 +126,14 @@ class Job extends Model {
     static async getId(id) {
         return await Job.findByPk(id, {
             include: [{
-                model: this.sequelize.models.User,
-                as: "Hirer"
-            }],
-            include: [{
-                model: this.sequelize.models.Skill,
-                as: "Skills"
-            }]
+                    model: this.sequelize.models.User,
+                    as: 'Hirer'
+                },
+                {
+                    model: this.sequelize.models.Skill,
+                    as: 'Skills'
+                }
+            ],
         })
     }
 

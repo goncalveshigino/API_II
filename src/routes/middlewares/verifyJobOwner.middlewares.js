@@ -6,9 +6,12 @@ module.exports = async(req, res, next) => {
         const jobId = parseInt(req.params.jobId ? req.params.jobId : req.params.id)
 
 
-        const job = Job.get(jobId)
+        const job = await Job.getId(jobId)
 
-        if (job.userId !== req.body.user.Job) {
+        console.log(job, req.body)
+
+        if (job.userId !== req.body.user.id) {
+            console.log(job, req.body)
             return errorResponse(res, 400, 'Voce nao tem permisao para acessar esse recurso')
         }
         req.body.jobId = jobId

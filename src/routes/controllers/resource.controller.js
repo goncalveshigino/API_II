@@ -61,11 +61,10 @@ class ResourceController {
 
     async update(req, res, next) {
         try {
-            const entityOld = await this.model.getId(req.params.id)
+            const entityOld = await this.model.findByPk(req.params.id)
             const entityNew = await entityOld.update(req.body)
             return sucessResponse(res, 200, `Entidade atualizada com sucesso em ${this.model.getTableName()}.`, entityNew)
         } catch (error) {
-            console.log(error)
             if (error.name && error.name.includes('SequelizeValidation')) {
                 return invalidResponse(res, 400, `Dados informados nao sao validos`)
             }
