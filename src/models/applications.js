@@ -32,7 +32,7 @@ class Application extends Model {
                     notNull: {
                         msg: 'O jobId deve ser informado.'
                     },
-                    async isInJobs(value) {
+                    /* async isInJobs(value) {
                         try {
                             const job = await this.sequelize.models.Job.get(value)
                             if (!job) {
@@ -41,7 +41,7 @@ class Application extends Model {
                         } catch (error) {
                             throw error;
                         }
-                    }
+                    } */
                 },
             },
             description: {

@@ -7,6 +7,7 @@ var indexRouter = require('./src/routes/index');
 var usersRouter = require('./src/routes/users.router');
 var skillsRouter = require('./src/routes/skills.router');
 var jobsRouter = require('./src/routes/jobs.router');
+var applicationRouter = require('./src/routes/applications.router');
 
 
 var app = express();
@@ -21,5 +22,6 @@ app.use('/', indexRouter);
 app.use('/api/users', usersRouter);
 app.use('/api/skills', skillsRouter);
 app.use('/api/jobs', jobsRouter);
+app.use('/api/applications', applicationRouter);
 
 module.exports = app;
