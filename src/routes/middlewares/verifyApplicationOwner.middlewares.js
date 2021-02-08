@@ -8,7 +8,6 @@ module.exports = async(req, res, next) => {
 
 
         if (application.userId !== req.body.user.id) {
-
             return errorResponse(res, 400, 'Voce nao tem permisao para acessar esse recurso')
         }
 
@@ -17,4 +16,5 @@ module.exports = async(req, res, next) => {
 
         return errorResponse(res, 404, 'Application nao encontrado.', error)
     }
+
 }

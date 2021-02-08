@@ -53,7 +53,7 @@ class ResourceController {
             if (error.name && error.name.includes('SequelizeValidation')) {
                 return invalidResponse(res, 400, `Dados informados nao sao validos`)
             }
-
+            console.log(error)
             return errorResponse(res, 500, `Erro ao incluir entidade em ${this.model.getTableName()}`, error)
         }
     }

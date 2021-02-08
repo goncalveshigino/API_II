@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 
 
-const ApplicationsController = require('./controllers/jobs.controller')
+const ApplicationController = require('./controllers/applications.controller')
 
 const verifyAccessToken = require('./middlewares/verifyAcessToken.middlewares')
 const verifyApplicationOwner = require('./middlewares/verifyApplicationOwner.middlewares')
@@ -12,15 +12,15 @@ const onlyAllowsOwner = [verifyAccessToken, verifyApplicationOwner]
 
 
 //INDEX
-router.get('/', verifyAccessToken, ApplicationsController.bindMethod('index'));
+router.get('/', verifyAccessToken, ApplicationController.bindMethod('index'));
 //SHOW
-router.get('/:id', verifyAccessToken, ApplicationsController.bindMethod('show'));
+router.get('/:id', verifyAccessToken, ApplicationController.bindMethod('show'));
 //STORE
-router.post('/', verifyAccessToken, ApplicationsController.bindMethod('store'));
+router.post('/', verifyAccessToken, ApplicationController.bindMethod('store'));
 //UPDATE
-router.patch('/:id', onlyAllowsOwner, ApplicationsController.bindMethod('update'));
+router.patch('/:id', onlyAllowsOwner, ApplicationController.bindMethod('update'));
 //DELETE
-router.delete('/:id', onlyAllowsOwner, ApplicationsController.bindMethod('remove'));
+router.delete('/:id', onlyAllowsOwner, ApplicationController.bindMethod('remove'));
 
 
 module.exports = router;

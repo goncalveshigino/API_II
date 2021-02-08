@@ -33,6 +33,7 @@ module.exports = {
                 type: Sequelize.TEXT
             },
             budget: {
+                allowNull: false,
                 type: Sequelize.NUMERIC
             },
             createdAt: {
