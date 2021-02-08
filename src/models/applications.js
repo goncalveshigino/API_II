@@ -13,11 +13,11 @@ class Application extends Model {
                     notNull: {
                         msg: 'O userId deve ser informado.'
                     },
-                    async isInUsers(value) {
+                    async isInJobs(value) {
                         try {
-                            const user = await this.sequelize.models.User.get(value)
-                            if (!user) {
-                                throw new Error('Usuario associado não pode ser encontrado');
+                            const job = await this.sequelize.models.Job.getId(value)
+                            if (!job) {
+                                throw new Error('Job associado não pode ser encontrado');
                             }
                         } catch (error) {
                             throw error;
@@ -32,16 +32,16 @@ class Application extends Model {
                     notNull: {
                         msg: 'O jobId deve ser informado.'
                     },
-                    /* async isInJobs(value) {
+                    async isInJobs(value) {
                         try {
-                            const job = await this.sequelize.models.Job.get(value)
+                            const job = await this.sequelize.models.Job.getId(value)
                             if (!job) {
                                 throw new Error('Job associado não pode ser encontrado');
                             }
                         } catch (error) {
                             throw error;
                         }
-                    } */
+                    }
                 },
             },
             description: {
@@ -59,7 +59,7 @@ class Application extends Model {
             },
         }, {
             sequelize,
-            underscored: true
+
         })
     }
 
@@ -127,7 +127,7 @@ class Application extends Model {
         }
     }
 
-    static async get(id) {
+    static async getId(id) {
         return await Application.findByPk(id, {
             include: [{
                     model: this.sequelize.models.User,
