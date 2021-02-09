@@ -15,7 +15,7 @@ class Portfolios extends Model {
                     notNull: {
                         msg: "O userId deve ser informado"
                     },
-                    /*  async isInUsers(value) {
+                    /* async isInUsers(value) {
                         try {
                             const user = await this.sequelize.models.User.get(value)
                             if (!user) {

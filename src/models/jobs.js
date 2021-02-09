@@ -42,6 +42,28 @@ class Job extends Model {
             },
             deadline: {
                 type: DataTypes.DATE
+            },
+            selectedApplicationId: {
+                type: DataTypes.INTEGER,
+                allowNull: false,
+
+                /* validate: {
+                    async isInApplications(value) {
+                        try {
+                            if (!value) return
+                            const application = await this.sequelize.models.Application.get(value)
+                            if (!application) {
+                                throw new Error('Candidatura associada não pode ser encontrada');
+                            }
+
+                            if (application.jobId !== this.id) {
+                                throw new Error('Candidatura associada não está relacionada a este projeto');
+                            }
+                        } catch (error) {
+                            throw error;
+                        }
+                    }
+                } */
             }
         }, {
             sequelize,
