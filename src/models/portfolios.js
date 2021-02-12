@@ -51,19 +51,23 @@ class Portfolios extends Model {
         })
     }
 
-    static async search(query) {
+    static async search(query, limit, offset) {
 
-        const limit = query.limit ? parseInt(query.limit) : 20
-        const offset = query.offset ? parseInt(query.offset) : 0
+
 
         let where = {}
+        where.userId = query.userId
+
         if (query.title) where.title = {
             [Op.like]: `%${query.title}%`
         }
 
         const { rows, count } = await Portfolios.findAndCountAll({
+            order: [
+                ['id', 'DESC'],
+            ],
             where: where,
-            limit: limit,
+            limit: limit < 100 && limit > 0 ? limit : 20,
             offset: offset
         })
         return {

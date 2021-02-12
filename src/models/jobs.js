@@ -119,7 +119,7 @@ class Job extends Model {
 
         if (query.userId) where.userId = query.userId
 
-        const { rows, count } = await Job.findAndCountAll({
+        const rows = await Job.findAndCountAll({
             include: [{
                     model: this.sequelize.models.User,
                     as: 'Hirer'
@@ -133,6 +133,12 @@ class Job extends Model {
             limit: limit,
             offset: offset
 
+        })
+
+        const count = await Job.count({
+            where: where,
+            limit: limit,
+            offset: offset
         })
 
         return {

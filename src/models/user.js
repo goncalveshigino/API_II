@@ -49,7 +49,11 @@ class User extends Model {
 
             hooks: {
                 beforeSave: (user, options) => {
-                    user.password = bcrypt.hashSync(user.password, 10)
+                    try {
+                        bcrypt.getRounds(user.password)
+                    } catch (error) {
+                        user.password = bcrypt.hashSync(user.password, 10)
+                    }
                 }
             }
         })

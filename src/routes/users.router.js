@@ -33,7 +33,7 @@ router.get('/:userId/portfolios', verifyAccessToken, PortfolioController.bindMet
 //PORTIFOLIOS SHOW
 router.get('/:userId/portfolios/:id', onlyAllowsOwner, PortfolioController.bindMethod('show'));
 //PORTIFOLIOS STORE
-router.post('/:userId/portfolios', onlyAllowsOwner, PortfolioController.bindMethod('store'));
+router.post('/:userId/portfolios', onlyAllowsOwner, upload.single('pic'), PortfolioController.bindMethod('store'));
 //PORTIFOLIOS UPDATE
 router.patch('/:userId/portfolios/:id', onlyAllowsOwner, upload.single('pic'), PortfolioController.bindMethod('update'));
 //PORTIFOLIOS REMOVE
