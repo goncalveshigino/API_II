@@ -60,6 +60,7 @@ class ResourceController {
 
 
     async update(req, res, next) {
+
         try {
             const entityOld = await this.model.findByPk(req.params.id)
             const entityNew = await entityOld.update(req.body)
