@@ -42,7 +42,7 @@ router.delete('/:userId/portfolios/:id', onlyAllowsOwner, PortfolioController.bi
 
 
 //Skills STORE
-router.post('/:userId/skills', onlyAllowsOwner, UserSkillsController.bindMethod('store'));
+router.post('/:userId/skills', verifyAccessToken, UserSkillsController.bindMethod('store'));
 //Skills UPDATE
 router.patch('/:userId/skills/:id', onlyAllowsOwner, UserSkillsController.bindMethod('update'));
 //Skills REMOVE

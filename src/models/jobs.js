@@ -55,7 +55,6 @@ class Job extends Model {
                             if (!application) {
                                 throw new Error('Candidatura associada não pode ser encontrada');
                             }
-
                             if (application.jobId !== this.id) {
                                 throw new Error('Candidatura associada não está relacionada a este projeto');
                             }
@@ -89,6 +88,7 @@ class Job extends Model {
     //subescrevendo create
 
     static async create(data) {
+        console.log(data)
         const job = await super.create(data)
         if (data.Skills) {
             await job.setSkills(data.Skills)

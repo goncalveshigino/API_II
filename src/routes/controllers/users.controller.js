@@ -16,6 +16,7 @@
 
 
      async login(req, res, next) {
+
          try {
              const { email, password } = req.body;
              const result = await User.verifyLogin(email, password);
@@ -23,6 +24,7 @@
          } catch (error) {
              errorResponse(res, 500, 'Nao foi possivel autenticar.')
          }
+
      }
 
      async update(req, res, next) {
